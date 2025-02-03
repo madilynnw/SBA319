@@ -1,10 +1,14 @@
 const mongoose = require("mongoose");
 
+// User schema
 const userSchema = new mongoose.Schema({
-  username: { type: String, required: true, unique: true },
-  email: { type: String, required: true, unique: true },
+  username: { type: String, required: true, unique: true, index: true }, // Index on username for fast querying
+  email: { type: String, required: true, unique: true, index: true }, // Index on email
   password: { type: String, required: true },
 });
+
+// Create an index on the email field for fast lookup
+userSchema.index({ email: 1 }); // Indexing email for faster queries
 
 const User = mongoose.model("User", userSchema);
 module.exports = User;
